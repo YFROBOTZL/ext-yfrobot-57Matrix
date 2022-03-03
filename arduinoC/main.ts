@@ -1,3 +1,15 @@
+/** 
+ * @file yfrobot
+ * @brief YFROBOT's sensors Mind+ library.
+ * @n This is a MindPlus graphics programming extension for YFROBOT's module.
+ * 
+ * @copyright    YFROBOT,2022
+ * @copyright    MIT Lesser General Public License
+ * 
+ * @author [email](yfrobot@qq.com)
+ * @date  2022-03-03
+*/
+
 enum SIZE {
     //% block="29*29"
     1,
@@ -83,7 +95,7 @@ enum PIN_DWrite {
 }
 
 
-//% color="#4d9721" iconWidth=50 iconHeight=40
+//% color="#177cb0" iconWidth=50 iconHeight=40
 namespace dotmatrix57 {
 
     //% block="57 dot matrix initliallize CLK [CLKPIN] DIO [DIOPIN]" blockType="command"
@@ -225,43 +237,7 @@ namespace dotmatrix57 {
         Generator.addCode(`myoled.getLineWidth()`);
     }
 
-    //% block="button [BUTTON] is pressed?" blockType="boolean"
-    //% Flag.shadow="boolean"
-    //% BUTTON.shadow="dropdown" BUTTON.options="BTN" BUTTON.defl="BTN.A"
-    export function buttonIsPressed(parameter: any, block: any) {
-        let button = parameter.BUTTON.code.replace("+"
-    ");
-        let code;
-        if(Generator.board === 'microbit'){
-            if (button === 'A') {
-                code = `Button_A.isPressed() && !Button_B.isPressed()`;
-            } else if (button === 'B') {
-                code = `Button_B.isPressed() && !Button_A.isPressed()`;
-            } else {
-                code = `Button_AB.isPressed()`;
-            }
-            Generator.addCode([code, Generator.ORDER_UNARY_POSTFIX]);
-        }else{
-            code = `button${button}.isPressed()`;
-            Generator.addInclude('MPython', '#include <MPython.h>');
-            Generator.addSetupMainTop("mPython.begin"
-    mPython.begin();");
-            Generator.addCode([code, Generator.ORDER_UNARY_POSTFIX]);
-        }
-    }
 
-    //% block="not [Flag]" blockType="boolean"
-    //% Flag.shadow="boolean"
-    export function notTrue(parameter: any) {
-        console.log("notTrue==", parameter);
-        let code: string = '!' + (parameter.Flag.code || 'false') + '';
-        Generator.addCode([code, Generator.ORDER_UNARY_POSTFIX]);
-    }
-
-    function replace(str :string) {
-        return str.replace("+"
-    ");
-    }
     /*
     //% block="AnalogWrite:[PIN_AnalogWrite],AnalogRead:[PIN_AnalogRead],DigitalWrite:[PIN_DigitalWrite],DigitalRead:[PIN_DigitalRead]" blockType="command"
     //% PIN_AnalogWrite.shadow="dropdownRound" PIN_AnalogWrite.options="PIN_AnalogWrite"

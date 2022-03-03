@@ -4,29 +4,21 @@
     "en": "5x7 dot matrix display"
   },
   "description": {
-    "zh-cn": "5x7 点阵显示",
-    "en": "5x7 dot matrix display"
+    "zh-cn": "YFROBOT 5x7 点阵显示",
+    "en": "YFROBOT 5x7 dot matrix display"
   },
   "author": "YFROBOT",
   "email": "yfrobot@qq.com",
   "license": "MIT",
   "isBoard": false,
-  "id": "yfrobot",
+  "id": "yfrobot_57matrix",
   "version": "0.0.1",
-  "platform": [
-    "win",
-    "mac",
-    "web"
-  ],
+  "platform": [ "win", "mac", "web" ],
   "asset": {
     "arduinoC": {
       "dir": "arduinoC/",
       "version": "0.0.1",
-      "board": [
-        "microbit",
-        "esp32",
-        "arduino"
-      ],
+      "board": [ "microbit", "esp32", "arduino", "mega2560", "leonardo" ],
       "main": "main.ts"
     }
   }
