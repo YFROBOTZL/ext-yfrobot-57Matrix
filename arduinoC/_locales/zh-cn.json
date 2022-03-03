@@ -1,6 +1,9 @@
 {
-    "dotmatrix57.buttonPress|block": "当 [BUTTON] 按钮按下",
-    "dotmatrix57.qrcode|block": "在坐标x [X] y [Y] 绘制二维码[STR] 尺寸 [SIZE]",
+    "dotmatrix57.init|block": "57点阵显示初始化 CLK [CLKPIN] DIO [DIOPIN]",
+    "dotmatrix57.clean|block": "57点阵显示清屏",
+    "dotmatrix57.setBrightness|block": "57点阵显示设置亮度 [BRIGHTNESS]",
+    "dotmatrix57.displayRow|block": "57点阵显示第 [ROW]行，显示 [DMROW]",
+
     "dotmatrix57.println|block": "在第 [LINE] 显示 [STR]",
     "dotmatrix57.print|block": "在坐标x [X] y [Y] 显示 [STR]",
     "dotmatrix57.setLineWidth|block": "设置线宽为 [WIDTH] 像素",

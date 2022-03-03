@@ -117,27 +117,54 @@ namespace dotmatrix57 {
     //% block="57 dot matrix set brightness [BRIGHTNESS]" blockType="command"
     //% BRIGHTNESS.shadow="range" BRIGHTNESS.params.min=0 BRIGHTNESS.params.max=7  BRIGHTNESS.defl=2
     export function setBrightness(parameter: any, block: any) {
-        let bright = parameter.CLKPIN.code;
+        let bright = parameter.BRIGHTNESS.code;
         Generator.addCode(`matrix57.set(${bright});`);
     }
 
     //% extenralFunc
-    // export function getBuiltinFunc_() {
-    //     return [
-    //         {matrix: "01010110101011010101101010110101011"},
-    //         {matrix: "01010110101011010101101010110101011"},
-    //         {matrix: "01010110101011010101101010110101011"},
-    //         {matrix: "01010110101011010101101010110101011"},
-    //         {matrix: "01010110101011010101101010110101011"}
-    //     ]
-    // }
+    export function getBuiltinFunc_() {
+        return [
+            {matrix: "{B00000000,B00001000,B00001110,B00001010,B00001000,B00111000,B00111000,B00000000}"},
+            {matrix: "01010110101011010101101010110101011"},
+            {matrix: "01010110101011010101101010110101011"},
+            {matrix: "01010110101011010101101010110101011"},
+            {matrix: "01010110101011010101101010110101011"}
+        ]
+    }
 
     //% block="57 dot matrix display [DMARRAY]" blockType="command"
-    //% DMARRAY.shadow="matrix" DMARRAY.params.row=5 DMARRAY.params.column=7
-    // DMARRAY.params.builtinFunc="getBuiltinFunc_"
-    export function setMatrix(parameter: any, block: any) {
+    //% DMARRAY.shadow="matrix" DMARRAY.params.row=5 DMARRAY.params.column=7 DMARRAY.split="B" DMARRAY.defl="01010110101011010101101010110101011"
+    //% DMARRAY.params.builtinFunc="getBuiltinFunc_"
+    // http://download.dfrobot.top/extList.json
+    export function displayArray(parameter: any, block: any) {
         let dmarray = parameter.DMARRAY.code;
-        Generator.addCode(`matrix57.set(${dmarray});`);
+        let dma = dmarray;
+        Generator.addObject("matrix57array", `const uint8_t`, `matrix57(${clk},${dio});`);
+        Generator.addCode(`matrix57.display(${dmarray}[0]);`);
+    }
+
+    //% extenralFunc2
+    export function getBuiltinFunc2_() {
+        return [
+            {matrix: "0000000"},
+            {matrix: "1000000"},
+            {matrix: "1100000"},
+            {matrix: "1110000"},
+            {matrix: "1111000"},
+            {matrix: "1111100"},
+            {matrix: "1111110"},
+            {matrix: "1111111"}
+        ]
+    }
+    
+    //% block="57 dot matrix display row [ROW] display [DMROW]" blockType="command"
+    //% ROW.shadow="range" ROW.params.min=1 ROW.params.max=5  ROW.defl=1
+    //% DMROW.shadow="matrix" DMROW.params.row=1 DMROW.params.column=7 DMROW.defl="1000000"
+    //% DMROW.params.builtinFunc="getBuiltinFunc2_"
+    export function displayRow(parameter: any, block: any) {
+        let dmrow = parameter.DMROW.code;
+        let row = parameter.ROW.code;
+        Generator.addCode(`matrix57.display(${row}-1,B${dmrow});`);
     }
 
     //% block="set Piranha LED [LEDSTATE] on [LEDPIN]" blockType="command"
@@ -149,32 +176,6 @@ namespace dotmatrix57 {
         Generator.addCode(`digitalWrite(${ledPin},${ledState});`);
     }
 
-    // block="when press [BUTTON]" blockType="hat"
-    // BUTTON.shadow="dropdown" BUTTON.options="BTN" BUTTON.defl="BTN.A"
-    // export function buttonPress(parameter: any, block: any) {
-    //     let button = parameter.BUTTON.code;
-    //     button = replace(button);
-    //     let name = 'button' + button + 'PressCallback';
-    //     if(Generator.board === 'microbit'){
-    //         Generator.addEvent(name, void", name", true);
-    //         Generator.addSetup(block.id, `onEvent(ID_BUTTON_${button}, PRESS, ${name});`, false);
-    //     }else{
-    //         Generator.addInclude('MPython', '#include <MPython.h>');
-    //         Generator.addEvent(name,    void", name", true);
-    //         Generator.addSetupMainTop("mPython.begin"  + "mPython.begin();");
-    //         Generator.addSetup(`button${button}.setPressedCallback`, `button${button}.setPressedCallback(${name});`);
-    //     }
-    // }
-
-    //% block="控制[YINJIAO]引脚的LED灯亮度为[LIANGDU]" blockType="command"
-    //% YINJIAO.shadow="dropdown" YINJIAO.options="PIN_AnalogWrite" 
-    //% LIANGDU.shadow="range"   LIANGDU.params.min=0    LIANGDU.params.max=255    LIANGDU.defl=255
-    export function liangdu(parameter: any, block: any) {
-        let YINJIAO = parameter.YINJIAO.code;
-        let LIANGDU = parameter.LIANGDU.code;
-
-        Generator.addCode(`analogWrite(${YINJIAO},${LIANGDU});`);
-    }
 
 
     //% block="show [STR] on the [LINE] line" blockType="command"
@@ -188,73 +189,5 @@ namespace dotmatrix57 {
         Generator.addSetup(`myoled.begin`, `myoled.begin();`);
         Generator.addCode(`myoled.setCursorLine(${line});\n\tmyoled.printLine(${str});`);
     }
-
-    //% block="show [STR] at x [X] y [Y]" blockType="command"
-    //% STR.shadow="string" STR.defl=hello
-    //% X.shadow="range" X.params.min=0 X.params.max=127 X.defl=0
-    //% Y.shadow="range" Y.params.min=0 Y.params.max=63 Y.defl=0
-    export function print(parameter: any, block: any) {
-        let str = parameter.STR.code
-        let x = parameter.X.code
-        let y = parameter.Y.code
-        Generator.addInclude('oled12864', '#include <oled12864.h>');
-        Generator.addObject(`myoled`, `OLED_12864`, `myoled;`);
-        Generator.addSetup(`myoled.begin`, `myoled.begin();`);
-        Generator.addCode(`myoled.setCursor(${x}, ${y});\n\tmyoled.print(${str});`);
-    }
-
-    //% block="display QR code [STR] at x [X] y [Y] with size [SIZE]" blockType="command"
-    //% STR.shadow="string" STR.defl=http://mindplus.cc
-    //% X.shadow="range" X.params.min=0 X.params.max=127 X.defl=0
-    //% Y.shadow="range" Y.params.min=0 Y.params.max=63 Y.defl=0
-    //% SIZE.shadow="dropdownRound" SIZE.options="SIZE" SIZE.defl="SIZE.2"
-    export function qrcode(parameter: any, block: any) {
-        let str = parameter.STR.code
-        let x = parameter.X.code
-        let y = parameter.Y.code
-        let size = parameter.SIZE.code
-        Generator.addInclude('oled12864', '#include <oled12864.h>');
-        Generator.addObject(`myoled`, `OLED_12864`, `myoled;`);
-        Generator.addSetup(`myoled.begin`, `myoled.begin();`);
-        Generator.addCode(`myoled.qrcode(${x}, ${y}, ${str}, ${size});`);
-    }
-
-    //% block="set the line width to [WIDTH] pixels" blockType="command"
-    //% WIDTH.shadow="range" WIDTH.params.min=1 WIDTH.params.max=128 WIDTH.defl=1
-    export function setLineWidth(parameter: any, block: any) {
-        let width = parameter.WIDTH.code
-        Generator.addInclude('oled12864', '#include <oled12864.h>');
-        Generator.addObject(`myoled`, `OLED_12864`, `myoled;`);
-        Generator.addSetup(`myoled.begin`, `myoled.begin();`);
-        Generator.addCode(`myoled.setLineWidth(${width});`);
-    }
-
-    //% block="get the line width" blockType="reporter"
-    export function getLineWidth(parameter: any, block: any) {
-        Generator.addInclude('oled12864', '#include <oled12864.h>');
-        Generator.addObject(`myoled`, `OLED_12864`, `myoled;`);
-        Generator.addSetup(`myoled.begin`, `myoled.begin();`);
-        Generator.addCode(`myoled.getLineWidth()`);
-    }
-
-
-    /*
-    //% block="AnalogWrite:[PIN_AnalogWrite],AnalogRead:[PIN_AnalogRead],DigitalWrite:[PIN_DigitalWrite],DigitalRead:[PIN_DigitalRead]" blockType="command"
-    //% PIN_AnalogWrite.shadow="dropdownRound" PIN_AnalogWrite.options="PIN_AnalogWrite"
-    //% PIN_AnalogRead.shadow="dropdownRound" PIN_AnalogRead.options="PIN_AnalogRead"
-    //% PIN_DigitalWrite.shadow="dropdownRound" PIN_DigitalWrite.options="PIN_DigitalWrite"
-    //% PIN_DigitalRead.shadow="dropdownRound" PIN_DigitalRead.options="PIN_DigitalRead"
-    export function blocktest(parameter: any)
-    {
-        let PIN_AnalogWrite=parameter.PIN_AnalogWrite.code;
-        let PIN_AnalogRead=parameter.PIN_AnalogRead.code;
-        let PIN_DigitalWrite=parameter.PIN_DigitalWrite.code;
-        let PIN_DigitalRead=parameter.PIN_DigitalRead.code;
-
-        Generator.addCode([`(${PIN_AnalogWrite},${PIN_AnalogRead},${PIN_DigitalWrite},${PIN_DigitalRead})`, Generator.ORDER_UNARY_POSTFIX]);
-    }
-
-    */
-
 
 }
