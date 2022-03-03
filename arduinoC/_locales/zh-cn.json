@@ -1,0 +1,12 @@
+{
+    "dotmatrix57.buttonPress|block": "当 [BUTTON] 按钮按下",
+    "dotmatrix57.qrcode|block": "在坐标x [X] y [Y] 绘制二维码[STR] 尺寸 [SIZE]",
+    "dotmatrix57.println|block": "在第 [LINE] 显示 [STR]",
+    "dotmatrix57.print|block": "在坐标x [X] y [Y] 显示 [STR]",
+    "dotmatrix57.setLineWidth|block": "设置线宽为 [WIDTH] 像素",
+    "dotmatrix57.getLineWidth|block": "获取线宽",
+    "dotmatrix57.buttonIsPressed|block": "按钮 [BUTTON] 被按下？",
+	"dotmatrix57.notTrue|block": "非 [Flag]",
+    "dotmatrix57.SIZE.1|menu": "29*29(1)",
+    "dotmatrix57.SIZE.2|menu": "58*58(2)"
+}
