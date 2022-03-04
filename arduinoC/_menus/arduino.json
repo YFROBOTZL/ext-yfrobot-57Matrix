@@ -44,9 +44,8 @@
 			["A4(SDA)", "A4"],
 			["A5(SCL)", "A5"]
 		],
-        "default_init_CLKPIN":"9",
-        "default_init_DIOPIN":"10",
-        "default_LEDState_LEDPIN":"2"
+        "default_init_CLKPIN":"8",
+        "default_init_DIOPIN":"9"
 	},
 	"PIN_DigitalRead": {
 		"menu": [

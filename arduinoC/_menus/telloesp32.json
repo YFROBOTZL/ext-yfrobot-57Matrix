@@ -39,7 +39,9 @@
 			["D7", "D7"],
 			["D8", "D8"],
 			["D9", "D9"]
-		]
+		],
+        "default_init_CLKPIN":"D2",
+        "default_init_DIOPIN":"D3"
 	},
 	"PIN_DigitalRead": {
 		"menu": [

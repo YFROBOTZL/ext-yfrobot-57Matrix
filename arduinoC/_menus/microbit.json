@@ -49,7 +49,9 @@
 			["P14(MISO)", "14"],
 			["P15(MOSI)", "15"],
 			["P16", "16"]
-		]
+		],
+        "default_init_CLKPIN":"P2",
+        "default_init_DIOPIN":"P1"
 	},
 	"PIN_DigitalRead": {
 		"menu": [

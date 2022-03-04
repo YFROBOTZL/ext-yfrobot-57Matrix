@@ -51,7 +51,9 @@
 			["H", "13"],
 			["O", "14"],
 			["N", "15"]
-		]
+		],
+        "default_init_CLKPIN":"P2",
+        "default_init_DIOPIN":"P1"
 	},
 	"PIN_DigitalRead": {
 		"menu": [

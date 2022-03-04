@@ -43,7 +43,9 @@
 			["A3", "A3"],
 			["A4(SDA)", "A4"],
 			["A5(SCL)", "A5"]
-		]
+		],
+        "default_init_CLKPIN":"8",
+        "default_init_DIOPIN":"9"
 	},
 	"PIN_DigitalRead": {
 		"menu": [
