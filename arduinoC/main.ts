@@ -41,9 +41,12 @@ namespace dotmatrix57 {
     export function getBuiltinFuncx_() {
         return [
             {matrix: "00111000111110011111000111000001000"},
+            {matrix: "00000000011100001110000010000000000"},
+            {matrix: "01101100110110000000001000100011100"},
+            {matrix: "01101100110110000000000111000100010"},
+            {matrix: "01101100110110000000000101000101010"},
             {matrix: "00000000001000001110000010000000000"},
-            {matrix: "00010000011100011111000111000001000"},
-            {matrix: "01101100110110000000001000100011100"}
+            {matrix: "00010000011100011111000111000001000"}
         ]
     }
 
@@ -59,7 +62,7 @@ namespace dotmatrix57 {
         }        
         
         // Generator.addInclude(`matrix57array${dmarray}`, `const uint8_t matrix57_${dmarray}[][5] = {\n  {B${dm_matrix[0]},B${dm_matrix[1]},B${dm_matrix[2]},B${dm_matrix[3]},B${dm_matrix[4]}}\n};`);
-        Generator.addInclude(`matrix57array${dmarray}`, `const uint8_t matrix57_${dmarray}[5] = {\n  B${dm_matrix[0]},B${dm_matrix[1]},B${dm_matrix[2]},B${dm_matrix[3]},B${dm_matrix[4]}\n};`);
+        Generator.addInclude(`matrix57array${dmarray}`, `int8_t matrix57_${dmarray}[5] = {\n  B${dm_matrix[0]},B${dm_matrix[1]},B${dm_matrix[2]},B${dm_matrix[3]},B${dm_matrix[4]}\n};`);
         Generator.addCode(`matrix57.display(matrix57_${dmarray});`);
     }
 

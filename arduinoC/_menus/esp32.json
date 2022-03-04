@@ -52,8 +52,8 @@
 			["O", "14"],
 			["N", "15"]
 		],
-        "default_init_CLKPIN":"P2",
-        "default_init_DIOPIN":"P1"
+        "default_init_CLKPIN":"P1",
+        "default_init_DIOPIN":"P0"
 	},
 	"PIN_DigitalRead": {
 		"menu": [
