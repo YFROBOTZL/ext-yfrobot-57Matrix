@@ -3,5 +3,5 @@
     "dotmatrix57.clean|block": "57点阵显示清屏",
     "dotmatrix57.setBrightness|block": "57点阵显示设置亮度 [BRIGHTNESS]",
     "dotmatrix57.displayArray|block": "57点阵显示模块显示[DMARRAY]",
-    "dotmatrix57.displayRow|block": "57点阵显示第 [ROW]行，显示 [DMROW]",
+    "dotmatrix57.displayRow|block": "57点阵显示第 [ROW]行，显示 [DMROW]"
 }
